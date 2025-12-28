@@ -1,0 +1,21 @@
+{
+  "name": "salary-calculator",
+  "version": "1.0.0",
+  "description": "Калкулатор за заплати с TypeScript",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "tsc && npx serve ."
+  },
+  "keywords": ["salary", "calculator", "typescript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

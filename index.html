@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoGrand - Калкулатор за Заплати</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 AutoGrand - Калкулатор за Заплати</h1>
+
+        <!-- Избор на обект -->
+        <div class="section location-selector-section">
+            <h2>📍 Избор на Обект</h2>
+            <div class="location-selector-wrapper">
+                <select id="locationSelector" class="location-selector">
+                    <option value="">-- Избери обект --</option>
+                </select>
+                <button class="btn-secondary" id="btnManageLocations">⚙️ Управление</button>
+            </div>
+            <div class="selected-location-info" id="selectedLocationInfo" style="display: none;">
+                <span class="location-badge" id="locationBadge"></span>
+            </div>
+        </div>
+
+        <!-- Управление на обекти (скрито по подразбиране) -->
+        <div class="section manage-locations-section" id="manageLocationsSection" style="display: none;">
+            <h2>🏢 Управление на Обекти</h2>
+            <div class="locations-grid" id="locationsGrid">
+                <!-- Обектите ще се заредят тук -->
+            </div>
+            
+            <details class="add-location-details">
+                <summary>➕ Добави нов обект</summary>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="locationName">Име на обекта</label>
+                        <input type="text" id="locationName" placeholder="Напр. Търговски обект">
+                    </div>
+                    <div class="form-group">
+                        <label for="locationCity">Град</label>
+                        <input type="text" id="locationCity" placeholder="Напр. Варна">
+                    </div>
+                    <div class="form-group">
+                        <label for="locationAddress">Адрес</label>
+                        <input type="text" id="locationAddress" placeholder="Напр. бул. Приморски 100">
+                    </div>
+                    <div class="form-group">
+                        <label for="locationType">Тип</label>
+                        <select id="locationType">
+                            <option value="store">Търговски обект</option>
+                            <option value="warehouse">Склад</option>
+                            <option value="office">Офис</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" id="btnAddLocation">Добави Обект</button>
+            </details>
+        </div>
+
+        <!-- Основен интерфейс (показва се само при избран обект) -->
+        <div id="mainInterface" style="display: none;">
+            
+            <!-- Общи данни за обекта -->
+            <div class="section global-turnover">
+                <h2>📊 Данни за <span id="locationNameHeader"></span></h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="month">Месец</label>
+                        <select id="month">
+                            <option value="Януари">Януари</option>
+                            <option value="Февруари">Февруари</option>
+                            <option value="Март">Март</option>
+                            <option value="Април">Април</option>
+                            <option value="Май">Май</option>
+                            <option value="Юни">Юни</option>
+                            <option value="Юли">Юли</option>
+                            <option value="Август">Август</option>
+                            <option value="Септември">Септември</option>
+                            <option value="Октомври">Октомври</option>
+                            <option value="Ноември">Ноември</option>
+                            <option value="Декември">Декември</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Година</label>
+                        <input type="number" id="year" placeholder="Напр. 2025" min="2000" max="2100">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="targetTurnover">🎯 Таргет за месеца</label>
+                        <input type="number" id="targetTurnover" placeholder="Напр. 100000" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="globalTurnover">Общ оборот на обекта</label>
+                        <input type="number" id="globalTurnover" placeholder="Напр. 122000" step="0.01">
+                    </div>
+                </div>
+                <div id="targetStatus" class="target-status" style="display: none;"></div>
+            </div>
+
+            <!-- Добавяне на нов дилър -->
+            <div class="section">
+                <h2>➕ Добави Дилър</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dealerName">Име на дилъра</label>
+                        <input type="text" id="dealerName" placeholder="Напр. Иван Петров">
+                    </div>
+                    <div class="form-group">
+                        <label for="coefGeneral">Коефициент (общ оборот)</label>
+                        <input type="number" id="coefGeneral" step="0.0001" placeholder="Напр. 0.0015">
+                    </div>
+                    <div class="form-group">
+                        <label for="coefPersonal">Коефициент (собствен оборот)</label>
+                        <input type="number" id="coefPersonal" step="0.0001" placeholder="Напр. 0.015">
+                    </div>
+                </div>
+                <button class="btn-primary" id="btnAddDealer">Добави Дилър</button>
+            </div>
+
+            <!-- Списък с дилъри -->
+            <div class="section">
+                <h2>👥 Дилъри в <span id="locationNameDealers"></span></h2>
+                <div id="dealersList" class="dealers-list">
+                    <div class="empty-state">
+                        <p>Няма добавени дилъри за този обект.</p>
+                        <p>Добави дилър от формата по-горе.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Действия -->
+            <div class="actions">
+                <button class="btn-primary" id="btnCalculate">🧮 Изчисли</button>
+                <button class="btn-warning" id="btnClear">🗑️ Изчисти</button>
+                <button class="btn-success" id="btnExport">📥 Свали Excel</button>
+            </div>
+
+            <!-- Качване на данни -->
+            <div class="section upload-section">
+                <h2>📤 Качи данни от Excel</h2>
+                <p class="upload-hint">Качи файл с колони: Име, Личен оборот, Общ оборот</p>
+                <div class="upload-actions">
+                    <label class="btn-upload" for="excelUpload">
+                        📂 Избери файл
+                        <input type="file" id="excelUpload" accept=".xlsx,.xls,.csv" hidden>
+                    </label>
+                    <button class="btn-template" id="btnDownloadTemplate">📋 Свали шаблон</button>
+                </div>
+                <div id="uploadStatus" class="upload-status"></div>
+            </div>
+
+            <!-- Резултати -->
+            <div class="section" id="resultsSection" style="display: none;">
+                <h2>📋 Резултати за <span class="results-period"></span></h2>
+                <div id="targetResult" class="target-result"></div>
+                <div class="table-wrapper">
+                    <table class="results-table" id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>Име</th>
+                                <th>Осн. заплата</th>
+                                <th>Общ оборот</th>
+                                <th>Собствен оборот</th>
+                                <th>Ваучери</th>
+                                <th>Бонус таргет</th>
+                                <th>Бруто</th>
+                                <th>Бонус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Съобщение за избор на обект -->
+        <div id="selectLocationMessage" class="select-location-message">
+            <p>👆 Избери обект от падащото меню, за да започнеш работа.</p>
+        </div>
+    </div>
+
+    <script type="module" src="./dist/app.js"></script>
+</body>
+</html>

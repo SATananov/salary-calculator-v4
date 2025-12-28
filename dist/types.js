@@ -1,0 +1,24 @@
+// Предефинирани обекти на AutoGrand (актуализирани)
+export const DEFAULT_LOCATIONS = [
+    // Централен офис
+    { name: 'Централен офис', city: 'София', address: 'бул. Черни връх 157', type: 'office' },
+    // Централен склад
+    { name: 'Централен склад', city: 'Стара Загора', address: 'ул. Новозагорско шосе 35001', type: 'warehouse' },
+    // Регионални складове
+    { name: 'Склад Рожен', city: 'София', address: 'бул. Рожен 22, НПЗ Военна рампа', type: 'warehouse' },
+    { name: 'Регионален склад', city: 'Благоевград', address: 'бул. Васил Левски 38', type: 'warehouse' },
+    { name: 'Регионален склад', city: 'Пловдив', address: 'бул. Асеновградско шосе 2', type: 'warehouse' },
+    { name: 'Регионален склад', city: 'Стара Загора', address: 'ул. Новозагорско шосе 35001', type: 'warehouse' },
+    { name: 'Регионален склад', city: 'Хасково', address: 'бул. Илинден 6', type: 'warehouse' },
+    { name: 'Регионален склад', city: 'Бургас', address: 'ул. Индустриална 51', type: 'warehouse' },
+    // Търговски обекти
+    { name: 'Търговски обект', city: 'Ямбол', address: 'ул. Ормана 68', type: 'store' },
+    { name: 'Търговски обект', city: 'Харманли', address: 'Главен път Е80 Паркинг КВЕЛЕ', type: 'store' },
+    { name: 'Търговски обект', city: 'Сливен', address: 'бул. Цар Симеон 43', type: 'store' },
+    { name: 'Търговски обект', city: 'Сандански', address: 'ул. Стефан Стамболов 49', type: 'store' },
+    { name: 'Търговски обект', city: 'Петрич', address: 'ул. Места 18 Б', type: 'store' },
+    { name: 'Търговски обект', city: 'Кърджали', address: 'бул. България 99', type: 'store' },
+    { name: 'Търговски обект', city: 'Казанлък', address: 'бул. Александър Батенберг 12', type: 'store' },
+    { name: 'Търговски обект', city: 'Димитровград', address: 'бул. Стефан Стамболов 6Б', type: 'store' }
+];
+//# sourceMappingURL=types.js.map

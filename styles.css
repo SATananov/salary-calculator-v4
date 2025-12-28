@@ -1,0 +1,628 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00d9ff;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    font-size: 2rem;
+}
+
+h2 {
+    color: #00d9ff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.results-period {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* Обекти grid */
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.location-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.location-chip.type-office {
+    background: rgba(255, 165, 2, 0.1);
+    border-color: rgba(255, 165, 2, 0.3);
+}
+
+.location-chip.type-warehouse {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: rgba(0, 255, 136, 0.3);
+}
+
+.location-chip.type-store {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: rgba(0, 217, 255, 0.3);
+}
+
+.location-chip-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.location-chip-name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.location-chip-city {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.location-chip-remove {
+    background: transparent;
+    border: none;
+    color: #ff4757;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.location-chip-remove:hover {
+    opacity: 1;
+}
+
+/* Add location details */
+.add-location-details {
+    margin-top: 15px;
+}
+
+.add-location-details summary {
+    cursor: pointer;
+    color: #00d9ff;
+    padding: 10px;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.add-location-details[open] summary {
+    margin-bottom: 15px;
+}
+
+/* Dealer location badge */
+.dealer-location-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(0, 217, 255, 0.2);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    color: #00d9ff;
+    margin-left: 10px;
+}
+
+/* Секции */
+.section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.global-turnover {
+    background: rgba(0, 217, 255, 0.1);
+    border: 2px solid rgba(0, 217, 255, 0.3);
+}
+
+/* Форми */
+.form-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+}
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Бутони */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00d9ff, #0099cc);
+    color: #1a1a2e;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    color: #1a1a2e;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff4757, #cc3344);
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffa502, #cc8400);
+    color: #1a1a2e;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 165, 2, 0.4);
+}
+
+/* Списък с дилъри */
+.dealers-list {
+    margin-top: 20px;
+}
+
+.location-group {
+    margin-bottom: 25px;
+}
+
+.location-group-title {
+    color: #00ff88;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.dealer-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.dealer-card:hover {
+    border-color: rgba(0, 217, 255, 0.3);
+}
+
+.dealer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dealer-name {
+    font-size: 1.2rem;
+    color: #00d9ff;
+    font-weight: bold;
+}
+
+.dealer-coefficients {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.dealer-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+/* Таблица с резултати */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-table th {
+    background: rgba(0, 217, 255, 0.2);
+    color: #00d9ff;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.results-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.results-table .number {
+    text-align: right;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.bonus-positive {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.bonus-negative {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+/* Действия */
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Празно състояние */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.empty-state p {
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .dealer-inputs {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .dealer-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dealer-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+    
+    .actions button {
+        width: 100%;
+    }
+}
+
+/* ==================== LOCATION SELECTOR ==================== */
+
+.location-selector-section {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 255, 136, 0.1));
+    border: 2px solid rgba(0, 217, 255, 0.4);
+}
+
+.location-selector-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.location-selector {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(0, 217, 255, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.location-selector:focus {
+    border-color: #00ff88;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.location-selector optgroup {
+    background: #1a1a2e;
+    color: #00d9ff;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.location-selector option {
+    padding: 10px;
+    background: #16213e;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 15px 20px;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.selected-location-info {
+    margin-top: 15px;
+}
+
+.location-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 217, 255, 0.2));
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    border-radius: 25px;
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Manage locations section */
+.manage-locations-section {
+    border: 2px dashed rgba(255, 165, 2, 0.3);
+    background: rgba(255, 165, 2, 0.05);
+}
+
+/* Select location message */
+.select-location-message {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.select-location-message p {
+    font-size: 1.3rem;
+    color: #888;
+}
+
+/* Responsive adjustments for location selector */
+@media (max-width: 768px) {
+    .location-selector-wrapper {
+        flex-direction: column;
+    }
+    
+    .location-selector {
+        width: 100%;
+    }
+    
+    .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* ==================== UPLOAD SECTION ==================== */
+
+.upload-section {
+    background: rgba(0, 255, 136, 0.05);
+    border: 2px dashed rgba(0, 255, 136, 0.3);
+    margin-top: 20px;
+}
+
+.upload-hint {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.upload-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    color: #1a1a2e;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-template {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(0, 217, 255, 0.5);
+    color: #00d9ff;
+}
+
+.btn-template:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: #00d9ff;
+}
+
+.upload-status {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.upload-status.success {
+    background: rgba(0, 255, 136, 0.15);
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    color: #00ff88;
+}
+
+.upload-status.error {
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid rgba(255, 71, 87, 0.5);
+    color: #ff4757;
+}
+
+@media (max-width: 480px) {
+    .upload-actions {
+        flex-direction: column;
+    }
+    
+    .btn-upload, .btn-template {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==================== TARGET STATUS ==================== */
+
+.target-status, .target-result {
+    display: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+
+.target-status.reached, .target-result.reached {
+    background: rgba(0, 255, 136, 0.15);
+    border: 2px solid rgba(0, 255, 136, 0.5);
+    color: #00ff88;
+}
+
+.target-status.not-reached, .target-result.not-reached {
+    background: rgba(255, 165, 2, 0.15);
+    border: 2px solid rgba(255, 165, 2, 0.5);
+    color: #ffa502;
+}
+
+.target-result {
+    margin-bottom: 20px;
+}
+
+#targetTurnover {
+    border-color: rgba(255, 165, 2, 0.5);
+    background: rgba(255, 165, 2, 0.1);
+}
+
+#targetTurnover:focus {
+    border-color: #ffa502;
+    box-shadow: 0 0 10px rgba(255, 165, 2, 0.3);
+}
