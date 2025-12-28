@@ -34,8 +34,10 @@ jobs:
           # copy other static assets if present
           cp -r dist site/dist || true
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          path: ./site
+
+      - name: Deploy to GitHub Pages (via GitHub Pages action)
+        uses: actions/deploy-pages@v1
